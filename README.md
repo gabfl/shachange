@@ -9,6 +9,10 @@ The modification in the image is virtually impossible to see for a human but com
  - A single pixel is slightly modified: it will change the image signature and will be virtually indistinctible for a human
  - For improved security, meta data are removed
 
+## Demo
+
+![Demo](https://github.com/gabfl/shachange/blob/master/img/demo.gif?raw=true)
+
 ## Installation
 
 ```
