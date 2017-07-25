@@ -8,7 +8,7 @@ except(IOError, ImportError):
 
 setup(
     name='shachange',
-    version='1.0',
+    version='1.1',
     description='Change an image sha signature',
     long_description=long_description,
     author='Gabriel Bordeaux',

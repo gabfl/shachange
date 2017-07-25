@@ -104,11 +104,11 @@ def changePixel():
     global im, load
 
     # Get pixel position
-    a, b = getRandomPixePositionl()
+    aPix, bPix = getRandomPixePositionl()
 
     # Get r, g & b for the pixel
     rgb_im = im.convert('RGB')
-    r, g, b = rgb_im.getpixel((a, b))
+    r, g, b = rgb_im.getpixel((aPix, bPix))
 
     # Get new color
     r2, g2, b2 = newColor(r, g, b)
@@ -119,7 +119,7 @@ def changePixel():
         print('...debug ->     new color: %d , %d, %d' % (r2, g2, b2))
 
     # Replace with a new value
-    load[a, b] = r2, g2, b2
+    load[aPix, bPix] = r2, g2, b2
 
 
 def saveImage():
@@ -130,7 +130,7 @@ def saveImage():
     global im
 
     # Saving the filtered image to a new file
-    im.save(getNewFileName(), 'JPEG')
+    im.save(getNewFileName())
 
 
 def getNewFileName():
