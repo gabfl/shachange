@@ -8,9 +8,12 @@ from PIL import Image, ImageFilter
 
 # Parse arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("-f", "--file", type=str, help="Original file path", required=True)
-parser.add_argument("-s", "--suffix", type=str, help="New file suffix", default='_2')
-parser.add_argument("-d", "--debug", action='store_true', help="Show debug information")
+parser.add_argument("-f", "--file", type=str,
+                    help="Original file path", required=True)
+parser.add_argument("-s", "--suffix", type=str,
+                    help="New file suffix", default='_2')
+parser.add_argument("-d", "--debug", action='store_true',
+                    help="Show debug information")
 args = parser.parse_args()
 
 # Vars
@@ -184,8 +187,10 @@ def main():
     # Save new image
     saveImage()
 
-    print('Current file signature: %s -> from     %s' % (getFileHash(args.file), args.file))
-    print('    New file signature: %s -> saved to %s' % (getFileHash(getNewFileName()), getNewFileName()))
+    print('Current file signature: %s -> from     %s' %
+          (getFileHash(args.file), args.file))
+    print('    New file signature: %s -> saved to %s' %
+          (getFileHash(getNewFileName()), getNewFileName()))
 
 
 if __name__ == '__main__':
