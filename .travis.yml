@@ -2,12 +2,10 @@ language: python
 python:
   - "3.6"
 before_install:
-  - pip install pycodestyle coverage coveralls
+  - pip install pycodestyle codecov
   - python3 setup.py install
 script:
   - pycodestyle --exclude=venv --ignore=E501 .
   - pytest
-  - coverage run --branch --source=. -m unittest discover -bv
-  - coverage report -m
 after_success:
-  - coveralls
+  - codecov
