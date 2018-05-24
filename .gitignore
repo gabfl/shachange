@@ -5,6 +5,7 @@ __pycache__/
 *.egg-info
 build/
 dist/
+.pytest_cache
 venv/
 
 # Mac
@@ -12,3 +13,7 @@ venv/
 
 # Misc
 tests/
+
+# Unit test files
+src/unittest/utils/img/raspberry_2*
+

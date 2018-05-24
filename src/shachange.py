@@ -6,31 +6,23 @@ import argparse
 from PIL import Image, ImageFilter
 
 
-# Parse arguments
-parser = argparse.ArgumentParser()
-parser.add_argument("-f", "--file", type=str,
-                    help="Original file path", required=True)
-parser.add_argument("-s", "--suffix", type=str,
-                    help="New file suffix", default='_2')
-parser.add_argument("-d", "--debug", action='store_true',
-                    help="Show debug information")
-args = parser.parse_args()
-
 # Vars
 im = None
 load = None
 
 
-def checkFileExists():
+def check_file_exists(file_):
     """
         Check if the original file exists
     """
 
-    if not os.path.isfile(args.file):
-        raise RuntimeError('The file `%s` does not exist.' % args.file)
+    if not os.path.isfile(file_):
+        raise RuntimeError('The file `%s` does not exist.' % file_)
+
+    return True
 
 
-def loadImage():
+def load_image(file_):
     """
         Open image
     """
@@ -38,13 +30,13 @@ def loadImage():
     global im, load
 
     try:
-        im = Image.open(args.file)
+        im = Image.open(file_)
         load = im.load()
     except Exception as e:
-        raise RuntimeError('`%s` does not appear to be an image.' % args.file)
+        raise RuntimeError('`%s` does not appear to be an image.' % file_)
 
 
-def getSize():
+def get_size(debug=False):
     """
         Return image size
     """
@@ -54,39 +46,39 @@ def getSize():
     width, height = im.size
 
     # Debug
-    if args.debug:
+    if debug:
         print('...debug -> canvas size: %d x %d' % (width, height))
 
     return width, height
 
 
-def getRandomPixePositionl():
+def get_random_pixel_position(debug=False):
     """
         Returns the position of a random pixel in the image
     """
 
     # Get image size
-    width, height = getSize()
+    width, height = get_size(debug)
 
     # Get random pixel
     a, b = random.randint(0, width - 1), random.randint(0, height - 1)
 
     # Debug
-    if args.debug:
+    if debug:
         print('...debug -> random pixel: %d , %d' % (a, b))
 
     return a, b
 
 
-def newColor(r, g, b):
+def new_color(r, g, b):
     """
         Returns new pixel color
     """
 
-    return newValue(r), newValue(g), newValue(b)
+    return new_value(r), new_value(g), new_value(b)
 
 
-def newValue(code):
+def new_value(code):
     """
         Returns a new color code
     """
@@ -99,7 +91,7 @@ def newValue(code):
     return code
 
 
-def changePixel():
+def change_pixel(debug=False):
     """
         Get a random pixel and replace its r, g & b codes with a new value
     """
@@ -107,25 +99,27 @@ def changePixel():
     global im, load
 
     # Get pixel position
-    aPix, bPix = getRandomPixePositionl()
+    aPix, bPix = get_random_pixel_position(debug)
 
     # Get r, g & b for the pixel
     rgb_im = im.convert('RGB')
     r, g, b = rgb_im.getpixel((aPix, bPix))
 
     # Get new color
-    r2, g2, b2 = newColor(r, g, b)
+    r2, g2, b2 = new_color(r, g, b)
 
     # Debug
-    if args.debug:
+    if debug:
         print('...debug -> current color: %d , %d, %d' % (r, g, b))
         print('...debug ->     new color: %d , %d, %d' % (r2, g2, b2))
 
     # Replace with a new value
     load[aPix, bPix] = r2, g2, b2
 
+    return True
 
-def saveImage():
+
+def save_image(file_, suffix='_2'):
     """
         Save new image
     """
@@ -133,30 +127,32 @@ def saveImage():
     global im
 
     # Saving the filtered image to a new file
-    im.save(getNewFileName())
+    im.save(get_new_filename(file_, suffix))
+
+    return True
 
 
-def getNewFileName():
+def get_new_filename(file_, suffix='_2'):
     """
         Returns the new file path
     """
 
     # Get name and extension of original file
-    name, ext = GetFileNameAndExt()
+    name, ext = get_filename_and_ext(file_)
 
-    return name + args.suffix + ext
+    return name + suffix + ext
 
 
-def GetFileNameAndExt():
+def get_filename_and_ext(file_):
     """
         Separate and returns the filename and extension of the original file
     """
 
     # Return format: filename, file_extension
-    return os.path.splitext(args.file)
+    return os.path.splitext(file_)
 
 
-def getFileHash(filepath):
+def get_file_hash(filepath):
     """
         Calculate file sha1
     """
@@ -170,27 +166,47 @@ def getFileHash(filepath):
     return sha1.hexdigest()
 
 
+def process_file(file_, suffix='_2', debug=False):
+    """
+        Process a file
+    """
+
+    # Check if file exists
+    check_file_exists(file_)
+
+    # Load image
+    load_image(file_)
+
+    # Replace a pixel
+    change_pixel(debug)
+
+    # Save new image
+    save_image(file_, suffix)
+
+    print('Current file signature: %s -> from     %s' %
+          (get_file_hash(file_), file_))
+    print('    New file signature: %s -> saved to %s' %
+          (get_file_hash(get_new_filename(file_, suffix)), get_new_filename(file_, suffix)))
+
+    return True
+
+
 def main():
     """
         Main function
     """
 
-    # Check if file exists
-    checkFileExists()
+    # Parse arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-f", "--file", type=str,
+                        help="Original file path", required=True)
+    parser.add_argument("-s", "--suffix", type=str,
+                        help="New file suffix", default='_2')
+    parser.add_argument("-d", "--debug", action='store_true',
+                        help="Show debug information")
+    args = parser.parse_args()
 
-    # Load iage
-    loadImage()
-
-    # Replace a pixel
-    changePixel()
-
-    # Save new image
-    saveImage()
-
-    print('Current file signature: %s -> from     %s' %
-          (getFileHash(args.file), args.file))
-    print('    New file signature: %s -> saved to %s' %
-          (getFileHash(getNewFileName()), getNewFileName()))
+    process_file(file_=args.file, suffix=args.suffix, debug=args.debug)
 
 
 if __name__ == '__main__':
