@@ -1,3 +1,6 @@
+[run]
+source=shachange
+
 [report]
 omit =
   setup.py
