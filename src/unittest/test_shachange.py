@@ -45,6 +45,10 @@ class Test(unittest.TestCase):
         for _, image in self.test_images.items():
             self.assertTrue(shachange.check_file_exists(image['path']))
 
+        # Test non existent file
+        self.assertRaises(RuntimeError, shachange.check_file_exists,
+                          'src/unittest/utils/img/non_existent')
+
     def test_load_image(self):
         for type_, image in self.test_images.items():
             shachange.load_image(image['path'])
@@ -58,9 +62,9 @@ class Test(unittest.TestCase):
             elif type_ == 'jp2':
                 self.assertIsInstance(
                     shachange.im, PIL.Jpeg2KImagePlugin.Jpeg2KImageFile)
-            elif type_ == 'gif':
-                self.assertIsInstance(
-                    shachange.im, PIL.GifImagePlugin.GifImageFile)
+            # elif type_ == 'gif':
+            #     self.assertIsInstance(
+            #         shachange.im, PIL.GifImagePlugin.GifImageFile)
             elif type_ == 'png':
                 self.assertIsInstance(
                     shachange.im, PIL.PngImagePlugin.PngImageFile)
@@ -71,11 +75,15 @@ class Test(unittest.TestCase):
 
             shachange.im.close()
 
+        # Test non existent file
+        self.assertRaises(RuntimeError, shachange.load_image,
+                          'src/unittest/utils/img/non_existent')
+
     def test_get_size(self):
         for type_, image in self.test_images.items():
             shachange.load_image(image['path'])
 
-            w, h = shachange.get_size()
+            w, h = shachange.get_size(True)
             ew, eh = image['size']
 
             self.assertEqual(w, ew)
@@ -85,7 +93,7 @@ class Test(unittest.TestCase):
         for type_, image in self.test_images.items():
             shachange.load_image(image['path'])
 
-            a, b = shachange.get_random_pixel_position()
+            a, b = shachange.get_random_pixel_position(True)
 
             self.assertIsInstance(a, int)
             self.assertIsInstance(b, int)
@@ -105,7 +113,7 @@ class Test(unittest.TestCase):
         for type_, image in self.test_images.items():
             shachange.load_image(image['path'])
 
-            self.assertTrue(shachange.change_pixel())
+            self.assertTrue(shachange.change_pixel(True))
 
     def test_save_image(self):
         for type_, image in self.test_images.items():
