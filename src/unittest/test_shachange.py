@@ -1,7 +1,7 @@
 
 import unittest
 
-from PIL import Image, ImageFilter
+import PIL
 
 from .. import shachange
 
