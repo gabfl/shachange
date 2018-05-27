@@ -1,5 +1,6 @@
 # shachange: Change an image sha signature
 
+[![Pypi](https://img.shields.io/pypi/v/shachange.svg)](https://pypi.org/project/shachange)
 [![Build Status](https://travis-ci.org/gabfl/shachange.svg?branch=master)](https://travis-ci.org/gabfl/shachange)
 [![codecov](https://codecov.io/gh/gabfl/shachange/branch/master/graph/badge.svg)](https://codecov.io/gh/gabfl/shachange)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://raw.githubusercontent.com/gabfl/shachange/master/LICENSE)
