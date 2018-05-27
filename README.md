@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/gabfl/shachange.svg?branch=master)](https://travis-ci.org/gabfl/shachange)
 [![codecov](https://codecov.io/gh/gabfl/shachange/branch/master/graph/badge.svg)](https://codecov.io/gh/gabfl/shachange)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://raw.githubusercontent.com/gabfl/shachange/master/LICENSE)
 
 `shachange` is a very simple Python program designed to change the signature of an image (sha1, sha256, md5...) in order to fool computer programs designed to identify unique images based on their signatures.
 
