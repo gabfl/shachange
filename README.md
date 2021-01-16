@@ -1,9 +1,9 @@
 # shachange: Change an image sha signature
 
 [![Pypi](https://img.shields.io/pypi/v/shachange.svg)](https://pypi.org/project/shachange)
-[![Build Status](https://travis-ci.org/gabfl/shachange.svg?branch=master)](https://travis-ci.org/gabfl/shachange)
-[![codecov](https://codecov.io/gh/gabfl/shachange/branch/master/graph/badge.svg)](https://codecov.io/gh/gabfl/shachange)
-[![MIT licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://raw.githubusercontent.com/gabfl/shachange/master/LICENSE)
+[![Build Status](https://travis-ci.org/gabfl/shachange.svg?branch=main)](https://travis-ci.org/gabfl/shachange)
+[![codecov](https://codecov.io/gh/gabfl/shachange/branch/main/graph/badge.svg)](https://codecov.io/gh/gabfl/shachange)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://raw.githubusercontent.com/gabfl/shachange/main/LICENSE)
 
 `shachange` is a very simple Python program designed to change the signature of an image (sha1, sha256, md5...) in order to fool computer programs designed to identify unique images based on their signatures.
 
@@ -16,7 +16,7 @@ The modification in the image is virtually impossible to see for a human but com
 
 ## Demo
 
-![Demo](https://github.com/gabfl/shachange/blob/master/img/demo.gif?raw=true)
+![Demo](https://github.com/gabfl/shachange/blob/main/img/demo.gif?raw=true)
 
 ## Installation
 
