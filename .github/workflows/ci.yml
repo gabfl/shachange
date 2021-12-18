@@ -16,7 +16,7 @@ jobs:
         run: python -c "import sys; print(sys.version)"
       - name: Install dependencies
         run: |
-          pip install pycodestyle pytest
+          pip install pycodestyle codecov pytest
           python3 setup.py install
       - name: Run pycodestyle
         run: |
